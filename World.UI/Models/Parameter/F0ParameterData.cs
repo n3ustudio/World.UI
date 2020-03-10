@@ -12,12 +12,14 @@ namespace World.UI.Models.Parameter
     {
 
         private F0ParameterData(
-            bool isNatural = true,
             string name = "F0",
             List<double> parameterList = null,
-            double tolerance = 0.00001)
+            double tolerance = 0.00001,
+            double viewTotal = 500,
+            double viewMin = 0,
+            double viewMax = 500)
             :
-            base(isNatural, name, parameterList, tolerance)
+            base(true, name, parameterList, tolerance, viewTotal, viewMin, viewMax)
         {
 
         }
@@ -25,7 +27,7 @@ namespace World.UI.Models.Parameter
         public F0ParameterData CreateF0ParameterData(
             List<double> parameterList = null,
             double tolerance = 0.00001) =>
-            new F0ParameterData(true, "F0", parameterList, tolerance);
+            new F0ParameterData("F0", parameterList, tolerance);
 
     }
 
@@ -34,12 +36,14 @@ namespace World.UI.Models.Parameter
 
         private F0DeltaParameterData(
             List<double> f0List,
-            bool isNatural = false,
             string name = "PIT",
             List<double> parameterList = null,
-            double tolerance = 0.00001)
+            double tolerance = 0.00001,
+            double viewTotal = 500,
+            double viewMin = -250,
+            double viewMax = 250)
             :
-            base(isNatural, name, parameterList, tolerance)
+            base(false, name, parameterList, tolerance, viewTotal, viewMin, viewMax)
         {
             f0OriginList = f0List;
         }
@@ -51,7 +55,7 @@ namespace World.UI.Models.Parameter
             List<double> pList = new List<double>();
             for (int i = 0; i < parameterList.Count; i++) pList.Add(0);
 
-            return new F0DeltaParameterData(f0OriginList, false, "PIT", pList, tolerance);
+            return new F0DeltaParameterData(f0OriginList, "PIT", pList, tolerance);
         }
 
         private List<double> f0OriginList { get; }
