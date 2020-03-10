@@ -94,5 +94,43 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MetroRadiance\source\MetroRadiance.Chrome.Externals\MetroRadiance.Chrome.Externals.csproj">
+      <Project>{35f4cdd9-e656-48c1-96f8-77cb63480e08}</Project>
+      <Name>MetroRadiance.Chrome.Externals</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MetroRadiance\source\MetroRadiance.Chrome\MetroRadiance.Chrome.csproj">
+      <Project>{21b4ad15-d9fa-4873-bfad-1eeefbc6c264}</Project>
+      <Name>MetroRadiance.Chrome</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MetroRadiance\source\MetroRadiance.Core\MetroRadiance.Core.csproj">
+      <Project>{a6b0a741-5be0-479d-b813-e65672350057}</Project>
+      <Name>MetroRadiance.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MetroRadiance\source\MetroRadiance\MetroRadiance.csproj">
+      <Project>{0af0b9ff-d981-4d0f-a41f-c3ab6fe2f16d}</Project>
+      <Name>MetroRadiance</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MetroRadiance\source\RetroRadiance\RetroRadiance.csproj">
+      <Project>{7f898b3a-da17-4cab-b387-5629b5faca49}</Project>
+      <Name>RetroRadiance</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Musiqual\Musiqual\Musiqual.csproj">
+      <Project>{8ae37ee4-a82c-48a2-991f-c905086e7cac}</Project>
+      <Name>Musiqual</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NeutrinoStudio.Utilities\NeutrinoStudio.Utilities.csproj">
+      <Project>{0354d973-ec37-4e94-941a-a12dd2629e96}</Project>
+      <Name>NeutrinoStudio.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\World.NET\WorldNet\WorldNet.csproj">
+      <Project>{689ce687-07ca-4d21-97ba-e4325fd943c8}</Project>
+      <Name>WorldNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\YDock\YDock\YDock.csproj">
+      <Project>{2bd226e4-b931-4b46-a6c3-d15270ad0565}</Project>
+      <Name>YDock</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
