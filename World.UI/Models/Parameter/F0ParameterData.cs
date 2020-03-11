@@ -57,7 +57,7 @@ namespace World.UI.Models.Parameter
             List<double> pList = new List<double>();
             for (int i = 0; i < parameterList.Count; i++) pList.Add(0);
 
-            return new F0DeltaParameterData(f0OriginList, f0OriginList.Count, "PIT", pList, tolerance);
+            return new F0DeltaParameterData(pList, pList.Count, "PIT", pList, tolerance);
         }
 
         private List<double> f0OriginList { get; }
