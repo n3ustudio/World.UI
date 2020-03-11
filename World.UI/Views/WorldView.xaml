@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="World.UI.Views.WorldView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:u="clr-namespace:NeutrinoStudio.Utilities.Controls;assembly=NeutrinoStudio.Utilities"
+             xmlns:local="clr-namespace:World.UI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <ToggleButton Margin="3" IsChecked="{Binding IsF0Loaded, Mode=TwoWay}">
+                    <u:Icon Type="FileDestination"/>
+                </ToggleButton>
+                <Button Margin="3" Click="SaveF0ButtonBase_OnClick">
+                    <u:Icon Type="Save"/>
+                </Button>
+            </StackPanel>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Margin="3" Grid.Column="1" Text="{Binding F0Path, Mode=OneWay}"/>
+        </Grid>
+    </Grid>
+</UserControl>
