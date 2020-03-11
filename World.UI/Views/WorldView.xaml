@@ -6,6 +6,10 @@
              xmlns:u="clr-namespace:NeutrinoStudio.Utilities.Controls;assembly=NeutrinoStudio.Utilities"
              xmlns:local="clr-namespace:World.UI.Views"
              mc:Ignorable="d" 
+             FontFamily="Segoe UI"
+             Background="{DynamicResource ThemeBrushKey}"
+             Foreground="White"
+             SnapsToDevicePixels="True"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid VerticalAlignment="Top">
@@ -15,10 +19,10 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <ToggleButton Margin="3" IsChecked="{Binding IsF0Loaded, Mode=TwoWay}" VerticalAlignment="Center">
-                    <u:Icon Type="FileDestination"/>
+                    <u:Icon Type="FileDestination" Margin="3"/>
                 </ToggleButton>
                 <Button Margin="3" Click="SaveF0ButtonBase_OnClick" VerticalAlignment="Center">
-                    <u:Icon Type="Save"/>
+                    <u:Icon Type="Save" Margin="3"/>
                 </Button>
                 <CheckBox IsEnabled="{Binding IsOpenAsDeltaDisabled, Mode=OneWay}"
                           Content="Open as Delta" Margin="3" VerticalAlignment="Center"/>
