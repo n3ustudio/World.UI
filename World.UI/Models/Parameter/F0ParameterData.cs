@@ -25,7 +25,7 @@ namespace World.UI.Models.Parameter
 
         }
 
-        public F0ParameterData CreateF0ParameterData(
+        public static F0ParameterData CreateF0ParameterData(
             List<double> parameterList = null,
             double tolerance = 0.00001) =>
             new F0ParameterData(parameterList.Count, "F0", parameterList, tolerance);
@@ -50,7 +50,7 @@ namespace World.UI.Models.Parameter
             f0OriginList = f0List;
         }
 
-        public F0DeltaParameterData CreateF0DeltaParameterData(
+        public static F0DeltaParameterData CreateF0DeltaParameterData(
             List<double> parameterList = null,
             double tolerance = 0.00001)
         {
