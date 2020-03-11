@@ -116,6 +116,10 @@
       <Project>{0354d973-ec37-4e94-941a-a12dd2629e96}</Project>
       <Name>NeutrinoStudio.Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Scrosser\Scrosser\Scrosser.csproj">
+      <Project>{8e456298-f8b2-4d9e-949c-0296f0ba07af}</Project>
+      <Name>Scrosser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\World.NET\WorldNet\WorldNet.csproj">
       <Project>{689ce687-07ca-4d21-97ba-e4325fd943c8}</Project>
       <Name>WorldNet</Name>
