@@ -38,7 +38,7 @@ namespace World.UI.Views
             _scross = scross;
             _editMode = editMode;
             _dockManager = dockManager;
-            _navigateDockControl = navigateDockControl;
+            NavigateDockControl = navigateDockControl;
 
             InitializeComponent();
 
@@ -126,7 +126,7 @@ namespace World.UI.Views
 
         private DockManager _dockManager;
 
-        private IDockControl _navigateDockControl;
+        public IDockControl NavigateDockControl;
 
         #endregion
 
@@ -179,7 +179,7 @@ namespace World.UI.Views
                 : new ParameterView(F0ParameterData, _scross, _editMode);
 
             _dockManager.RegisterDocument(ParameterView);
-            _navigateDockControl.Show();
+            NavigateDockControl.Show();
             ParameterView.DockControl.Show();
 
         }
@@ -203,7 +203,7 @@ namespace World.UI.Views
                 IsEnabled = false
             };
 
-            _navigateDockControl.Hide();
+            NavigateDockControl.Hide();
             ParameterView.DockControl.Hide();
             ParameterView.DockControl.Dispose();
             ParameterView = null;
