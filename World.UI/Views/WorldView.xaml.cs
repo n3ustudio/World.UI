@@ -32,7 +32,7 @@ namespace World.UI.Views
     public partial class WorldView : UserControl, IDockSource, INotifyPropertyChanged
     {
 
-        public WorldView(DockManager dockManager, DockControl navigateDockControl, Scross scross, EditMode editMode)
+        public WorldView(DockManager dockManager, IDockControl navigateDockControl, Scross scross, EditMode editMode)
         {
 
             _scross = scross;
@@ -126,7 +126,7 @@ namespace World.UI.Views
 
         private DockManager _dockManager;
 
-        private DockControl _navigateDockControl;
+        private IDockControl _navigateDockControl;
 
         #endregion
 
