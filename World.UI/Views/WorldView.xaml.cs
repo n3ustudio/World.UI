@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -14,7 +15,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using Musiqual.Editor.Models;
+using Musiqual.Parameter;
 using Musiqual.Parameter.Views;
+using Scrosser.Models;
+using World.UI.Models.Parameter;
+using YDock;
 using YDock.Interface;
 
 namespace World.UI.Views
@@ -25,8 +32,13 @@ namespace World.UI.Views
     public partial class WorldView : UserControl, IDockSource, INotifyPropertyChanged
     {
 
-        public WorldView()
+        public WorldView(DockManager dockManager, DockControl navigateDockControl, Scross scross, EditMode editMode)
         {
+
+            _scross = scross;
+            _editMode = editMode;
+            _dockManager = dockManager;
+            _navigateDockControl = navigateDockControl;
 
             InitializeComponent();
 
@@ -44,12 +56,6 @@ namespace World.UI.Views
 
         #endregion
 
-        #region Current
-
-        public static WorldView Current = new WorldView();
-
-        #endregion
-
         #region DataContext
 
         private bool _isF0Loaded;
@@ -63,8 +69,11 @@ namespace World.UI.Views
                 else if (!value && _isF0Loaded) UnloadF0();
                 _isF0Loaded = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsOpenAsDeltaDisabled));
             }
         }
+
+        public bool IsOpenAsDeltaDisabled => !_isF0Loaded;
 
         private string _f0Path = "";
 
@@ -74,6 +83,18 @@ namespace World.UI.Views
             set
             {
                 _f0Path = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _openAsDelta;
+
+        public bool OpenAsDelta
+        {
+            get => _openAsDelta;
+            set
+            {
+                _openAsDelta = value;
                 OnPropertyChanged();
             }
         }
@@ -95,6 +116,18 @@ namespace World.UI.Views
 
         public ParameterView ParameterView;
 
+        public F0DeltaParameterData F0DeltaParameterData;
+
+        public F0ParameterData F0ParameterData;
+
+        private Scross _scross;
+
+        private EditMode _editMode;
+
+        private DockManager _dockManager;
+
+        private DockControl _navigateDockControl;
+
         #endregion
 
         #region Load/Save
@@ -102,10 +135,78 @@ namespace World.UI.Views
         private void LoadF0()
         {
 
+            CommonOpenFileDialog fileDialog = new CommonOpenFileDialog
+            {
+                Title = "Choose F0 Parameter Files",
+                DefaultDirectory = Environment.CurrentDirectory,
+                IsFolderPicker = false,
+                AllowNonFileSystemItems = true,
+                EnsurePathExists = true,
+                Multiselect = false,
+                Filters = { new CommonFileDialogFilter("F0 Parameter", ".f0") },
+                EnsureFileExists = true
+            };
+
+            if (fileDialog.ShowDialog() != CommonFileDialogResult.Ok)
+            {
+                IsF0Loaded = false;
+                return;
+            }
+            F0Path = fileDialog.FileName;
+
+            #region Process F0 Data
+
+            byte[] f = File.ReadAllBytes(F0Path);
+            List<double> f1 = new List<double>();
+            int cnt = f.Length / 8;
+            for (int i = 0; i < cnt; i++) f1.Add(BitConverter.ToDouble(f, i * 8));
+            if (OpenAsDelta)
+                F0DeltaParameterData = F0DeltaParameterData.CreateF0DeltaParameterData(f1);
+            else
+                F0ParameterData = F0ParameterData.CreateF0ParameterData(f1);
+
+            #endregion
+
+            _scross = new Scross()
+            {
+                IsEnabled = true,
+                Total = f1.Count,
+                Position = 0
+            };
+
+            ParameterView = OpenAsDelta
+                ? new ParameterView(F0DeltaParameterData, _scross, _editMode)
+                : new ParameterView(F0ParameterData, _scross, _editMode);
+
+            _dockManager.RegisterDocument(ParameterView);
+            _navigateDockControl.Show();
+            ParameterView.DockControl.Show();
+
         }
 
         private void UnloadF0()
         {
+            if (ParameterView is null) return;
+            MessageBoxResult result = MessageBox.Show(
+                "Save before unload?",
+                "Unload",
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Question,
+                MessageBoxResult.Yes);
+            if (result == MessageBoxResult.Cancel) return;
+            if (result == MessageBoxResult.Yes) SaveF0ButtonBase_OnClick(this, null);
+
+            F0Path = "";
+
+            _scross = new Scross()
+            {
+                IsEnabled = false
+            };
+
+            _navigateDockControl.Hide();
+            ParameterView.DockControl.Hide();
+            ParameterView.DockControl.Dispose();
+            ParameterView = null;
 
         }
 

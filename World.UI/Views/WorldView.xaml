@@ -14,12 +14,14 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <ToggleButton Margin="3" IsChecked="{Binding IsF0Loaded, Mode=TwoWay}">
+                <ToggleButton Margin="3" IsChecked="{Binding IsF0Loaded, Mode=TwoWay}" VerticalAlignment="Center">
                     <u:Icon Type="FileDestination"/>
                 </ToggleButton>
-                <Button Margin="3" Click="SaveF0ButtonBase_OnClick">
+                <Button Margin="3" Click="SaveF0ButtonBase_OnClick" VerticalAlignment="Center">
                     <u:Icon Type="Save"/>
                 </Button>
+                <CheckBox IsEnabled="{Binding IsOpenAsDeltaDisabled, Mode=OneWay}"
+                          Content="Open as Delta" Margin="3" VerticalAlignment="Center"/>
             </StackPanel>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"
                        Margin="3" Grid.Column="1" Text="{Binding F0Path, Mode=OneWay}"/>
