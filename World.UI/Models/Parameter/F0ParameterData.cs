@@ -12,7 +12,7 @@ namespace World.UI.Models.Parameter
     {
 
         private F0ParameterData(
-            long total,
+            int total,
             string name = "F0",
             List<double> parameterList = null,
             double tolerance = 0.00001,
@@ -37,7 +37,7 @@ namespace World.UI.Models.Parameter
 
         private F0DeltaParameterData(
             List<double> f0List,
-            long total,
+            int total,
             string name = "PIT",
             List<double> parameterList = null,
             double tolerance = 0.00001,
