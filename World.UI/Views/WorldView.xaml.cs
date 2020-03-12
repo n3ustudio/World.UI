@@ -32,10 +32,10 @@ namespace World.UI.Views
     public partial class WorldView : UserControl, IDockSource, INotifyPropertyChanged
     {
 
-        public WorldView(DockManager dockManager, IDockControl navigateDockControl, Scross scross, EditMode editMode)
+        public WorldView(DockManager dockManager, IDockControl navigateDockControl, Action<Scross> setScross, EditMode editMode)
         {
 
-            _scross = scross;
+            _setScross = setScross;
             _editMode = editMode;
             _dockManager = dockManager;
             NavigateDockControl = navigateDockControl;
@@ -120,7 +120,7 @@ namespace World.UI.Views
 
         public F0ParameterData F0ParameterData;
 
-        private Scross _scross;
+        private Action<Scross> _setScross;
 
         private EditMode _editMode;
 
@@ -167,7 +167,7 @@ namespace World.UI.Views
 
             #endregion
 
-            _scross = new Scross()
+            Scross scr = new Scross()
             {
                 IsEnabled = true,
                 Total = f1.Count,
@@ -175,8 +175,10 @@ namespace World.UI.Views
             };
 
             ParameterView = OpenAsDelta
-                ? new ParameterView(F0DeltaParameterData, _scross, _editMode)
-                : new ParameterView(F0ParameterData, _scross, _editMode);
+                ? new ParameterView(F0DeltaParameterData, scr, _editMode)
+                : new ParameterView(F0ParameterData, scr, _editMode);
+
+            _setScross(scr);
 
             _dockManager.RegisterDocument(ParameterView);
             NavigateDockControl.Show();
@@ -198,10 +200,7 @@ namespace World.UI.Views
 
             F0Path = "";
 
-            _scross = new Scross()
-            {
-                IsEnabled = false
-            };
+            _setScross(new Scross());
 
             NavigateDockControl.Hide();
             ParameterView.DockControl.Hide();
