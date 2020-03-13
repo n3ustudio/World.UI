@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Musiqual.Parameter;
+using Scrosser.Models;
 
 namespace World.UI.Models.Parameter
 {
@@ -12,23 +13,22 @@ namespace World.UI.Models.Parameter
     {
 
         private F0ParameterData(
-            int total,
+            int horizontalTotal,
+            double verticalTotal,
             string name = "F0",
             List<double> parameterList = null,
-            double tolerance = 0.00001,
-            double viewTotal = 500,
-            double viewMin = 0,
-            double viewMax = 500)
+            double tolerance = 0.00001)
             :
-            base(total, true, name, parameterList, tolerance, viewTotal, viewMin, viewMax)
+            base(horizontalTotal, verticalTotal, true, name, parameterList, tolerance)
         {
 
         }
 
         public static F0ParameterData CreateF0ParameterData(
-            List<double> parameterList = null,
+            List<double> parameterList,
+            Scross verticalScross,
             double tolerance = 0.00001) =>
-            new F0ParameterData(parameterList.Count, "F0", parameterList, tolerance);
+            new F0ParameterData(parameterList.Count, verticalScross.Total, "F0", parameterList, tolerance);
 
     }
 
@@ -37,27 +37,26 @@ namespace World.UI.Models.Parameter
 
         private F0DeltaParameterData(
             List<double> f0List,
-            int total,
+            int horizontalTotal,
+            double verticalTotal,
             string name = "PIT",
             List<double> parameterList = null,
-            double tolerance = 0.00001,
-            double viewTotal = 500,
-            double viewMin = -250,
-            double viewMax = 250)
+            double tolerance = 0.00001)
             :
-            base(total, false, name, parameterList, tolerance, viewTotal, viewMin, viewMax)
+            base(horizontalTotal, verticalTotal, false, name, parameterList, tolerance)
         {
             f0OriginList = f0List;
         }
 
         public static F0DeltaParameterData CreateF0DeltaParameterData(
-            List<double> parameterList = null,
+            List<double> parameterList,
+            Scross verticalScross,
             double tolerance = 0.00001)
         {
             List<double> pList = new List<double>();
             for (int i = 0; i < parameterList.Count; i++) pList.Add(0);
 
-            return new F0DeltaParameterData(pList, pList.Count, "PIT", pList, tolerance);
+            return new F0DeltaParameterData(pList, pList.Count, verticalScross.Total, "PIT", pList, tolerance);
         }
 
         private List<double> f0OriginList { get; }

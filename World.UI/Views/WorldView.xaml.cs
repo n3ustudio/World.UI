@@ -160,25 +160,33 @@ namespace World.UI.Views
             List<double> f1 = new List<double>();
             int cnt = f.Length / 8;
             for (int i = 0; i < cnt; i++) f1.Add(BitConverter.ToDouble(f, i * 8));
-            if (OpenAsDelta)
-                F0DeltaParameterData = F0DeltaParameterData.CreateF0DeltaParameterData(f1);
-            else
-                F0ParameterData = F0ParameterData.CreateF0ParameterData(f1);
 
-            #endregion
-
-            Scross scr = new Scross()
+            Scross horizontalScross = new Scross()
             {
                 IsEnabled = true,
                 Total = f1.Count,
                 Position = 0
             };
 
-            ParameterView = OpenAsDelta
-                ? new ParameterView(F0DeltaParameterData, scr, _editMode)
-                : new ParameterView(F0ParameterData, scr, _editMode);
+            Scross vertitalScross = new Scross()
+            {
+                IsEnabled = true,
+                Total = 1000,
+                Position = 0
+            };
 
-            _setScross(scr);
+            #endregion
+
+            if (OpenAsDelta)
+                F0DeltaParameterData = F0DeltaParameterData.CreateF0DeltaParameterData(f1, vertitalScross);
+            else
+                F0ParameterData = F0ParameterData.CreateF0ParameterData(f1, vertitalScross);
+
+            ParameterView = OpenAsDelta
+                ? new ParameterView(F0DeltaParameterData, horizontalScross, vertitalScross, _editMode)
+                : new ParameterView(F0ParameterData, horizontalScross, vertitalScross, _editMode);
+
+            _setScross(horizontalScross);
 
             _dockManager.RegisterDocument(ParameterView);
             NavigateDockControl.Show();
