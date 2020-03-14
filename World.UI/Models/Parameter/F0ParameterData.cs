@@ -62,6 +62,12 @@ namespace World.UI.Models.Parameter
                 index++;
             }
 
+            while (true)
+            {
+                if (resultList.Count == HorizontalTotal) break;
+                resultList.Add(prevData);
+            }
+
             return resultList;
         }
 
@@ -126,6 +132,12 @@ namespace World.UI.Models.Parameter
                 resultList.Add(f0OriginList[index] + parameter.Value.Position);
                 prevData = parameter.Value.Position;
                 index++;
+            }
+
+            while (true)
+            {
+                if (resultList.Count == HorizontalTotal) break;
+                resultList.Add(prevData);
             }
 
             return resultList;
