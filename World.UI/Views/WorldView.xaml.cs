@@ -219,7 +219,31 @@ namespace World.UI.Views
 
         private void SaveF0ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            if (!IsF0Loaded) return;
+            if (OpenAsDelta)
+            {
+                List<double> exportedList = F0DeltaParameterData.Export();
+                FileStream stream = new FileStream(F0Path, FileMode.Create);
+                foreach (double d in exportedList)
+                {
+                    byte[] tmp = BitConverter.GetBytes(d);
+                    stream.Write(tmp, 0, tmp.Length);
+                }
+                stream.Flush();
+                stream.Close();
+            }
+            else
+            {
+                List<double> exportedList = F0ParameterData.Export();
+                FileStream stream = new FileStream(F0Path, FileMode.Create);
+                foreach (double d in exportedList)
+                {
+                    byte[] tmp = BitConverter.GetBytes(d);
+                    stream.Write(tmp, 0, tmp.Length);
+                }
+                stream.Flush();
+                stream.Close();
+            }
         }
 
         #endregion
