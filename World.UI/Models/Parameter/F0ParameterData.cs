@@ -26,9 +26,8 @@ namespace World.UI.Models.Parameter
 
         public static F0ParameterData CreateF0ParameterData(
             List<double> parameterList,
-            Scross verticalScross,
             double tolerance = 0.00001) =>
-            new F0ParameterData(parameterList.Count, verticalScross.Total, "F0", parameterList, tolerance);
+            new F0ParameterData(parameterList.Count, 5000, "F0", parameterList, tolerance);
 
     }
 
@@ -50,13 +49,12 @@ namespace World.UI.Models.Parameter
 
         public static F0DeltaParameterData CreateF0DeltaParameterData(
             List<double> parameterList,
-            Scross verticalScross,
             double tolerance = 0.00001)
         {
             List<double> pList = new List<double>();
             for (int i = 0; i < parameterList.Count; i++) pList.Add(0);
 
-            return new F0DeltaParameterData(pList, pList.Count, verticalScross.Total, "PIT", pList, tolerance);
+            return new F0DeltaParameterData(pList, pList.Count, 5000, "PIT", pList, tolerance);
         }
 
         private List<double> f0OriginList { get; }

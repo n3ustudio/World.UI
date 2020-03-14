@@ -178,9 +178,9 @@ namespace World.UI.Views
             #endregion
 
             if (OpenAsDelta)
-                F0DeltaParameterData = F0DeltaParameterData.CreateF0DeltaParameterData(f1, vertitalScross);
+                F0DeltaParameterData = F0DeltaParameterData.CreateF0DeltaParameterData(f1);
             else
-                F0ParameterData = F0ParameterData.CreateF0ParameterData(f1, vertitalScross);
+                F0ParameterData = F0ParameterData.CreateF0ParameterData(f1);
 
             ParameterView = OpenAsDelta
                 ? new ParameterView(F0DeltaParameterData, horizontalScross, vertitalScross, _editMode)
