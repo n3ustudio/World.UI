@@ -172,7 +172,7 @@ namespace World.UI.Views
             {
                 IsEnabled = true,
                 Total = 1000,
-                Position = 0
+                Position = 500
             };
 
             #endregion
