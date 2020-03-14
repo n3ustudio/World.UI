@@ -21,7 +21,8 @@
                 <ToggleButton Margin="3" IsChecked="{Binding IsF0Loaded, Mode=TwoWay}" VerticalAlignment="Center">
                     <u:Icon Type="FileDestination" Margin="3"/>
                 </ToggleButton>
-                <Button Margin="3" Click="SaveF0ButtonBase_OnClick" VerticalAlignment="Center">
+                <Button Margin="3" Click="SaveF0ButtonBase_OnClick" VerticalAlignment="Center"
+                        IsEnabled="{Binding IsF0Loaded, Mode=OneWay}">
                     <u:Icon Type="Save" Margin="3"/>
                 </Button>
                 <CheckBox IsEnabled="{Binding IsOpenAsDeltaDisabled, Mode=OneWay}"
